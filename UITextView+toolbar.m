@@ -34,7 +34,7 @@
 
 -(void)addKeyboard:(BOOL)animated previous:(SEL)previousSelector nextSelector:(SEL)nextSelector doneSelector:(SEL)doneSelector{
     
-    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0,0,1024,44)];
+    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0,0,320,44)];
     [toolBar setBarStyle:UIBarStyleBlack];
     [toolBar setTranslucent:TRUE];
     UIBarButtonItem *previous = [[UIBarButtonItem alloc] initWithTitle:@"Previous" style:UIBarButtonItemStyleBordered target:self action:previousSelector];
@@ -46,7 +46,7 @@
     UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:doneSelector];
     
     [toolBar setItems:@[previous,next,seperator,done] animated:animated];
-    
+    toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.inputAccessoryView = toolBar;
 }
 
