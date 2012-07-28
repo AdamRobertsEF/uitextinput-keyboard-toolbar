@@ -1,0 +1,21 @@
+UITextView+toolbar iOS category to simplify adding a toolbar to a textview.
+
+Instructions
+
+1) Add these files to your project
+
+   UITextView+toolbar.h
+   UITextView+toolbar.m
+
+2) Add keyboard to textview example
+
+   UITextView *myTextView = [UITextView alloc] init];
+
+   [myTextView addKeyboard:TRUE
+                  previous:@selector(previous:) 	
+              nextSelector:@selector(next:)
+              doneSelector:@selector(done:)];
+
+
+
+
