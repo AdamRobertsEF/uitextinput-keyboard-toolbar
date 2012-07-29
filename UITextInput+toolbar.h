@@ -1,5 +1,5 @@
 /*
- UITextView+toolbar.h
+ UITextInput+toolbar.h
  
  Created by Adam Roberts on 19/05/2012.
  Copyright (c) 2012 Enigmatic Flare Ltd. All rights reserved.
@@ -31,8 +31,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UITextView (toolbar)
+@interface UIView (toolbar)
 
--(void)addKeyboard:(BOOL)animated previous:(SEL)previousSelector nextSelector:(SEL)nextSelector doneSelector:(SEL)doneSelector;
+-(UIToolbar*)addKeyboard:(BOOL)animated previous:(SEL)previousSelector nextSelector:(SEL)nextSelector doneSelector:(SEL)doneSelector;;
+-(void)setInputAccessoryView:(UIView *)inputAccessoryView;
 
 @end
