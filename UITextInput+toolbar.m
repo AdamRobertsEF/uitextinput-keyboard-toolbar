@@ -50,7 +50,7 @@
 
 
 
--(UIToolbar*)addKeyboard:(BOOL)animated previous:(SEL)previousSelector nextSelector:(SEL)nextSelector doneSelector:(SEL)doneSelector{
+-(UIToolbar*)addToolbar:(BOOL)animated target:(id)target previous:(SEL)previousSelector nextSelector:(SEL)nextSelector doneSelector:(SEL)doneSelector{
     
     if (![self isKindOfClass:UISearchBar.class]){
         if (![self conformsToProtocol:@protocol(UITextInput)]) {
@@ -62,25 +62,46 @@
     UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0,0,320,44)];
     [toolBar setBarStyle:UIBarStyleBlack];
     [toolBar setTranslucent:TRUE];
-    UIBarButtonItem *previous = [[UIBarButtonItem alloc] initWithTitle:@"Previous"
-                                                                 style:UIBarButtonItemStyleBordered
-                                                                target:self
-                                                                action:previousSelector];
+    
+    UIBarButtonItem *previous = nil;
+    UIBarButtonItem *next = nil;
+    UIBarButtonItem *done = nil;
+    NSMutableArray *items = [[NSMutableArray alloc]init];
+    
+    if (previousSelector) {
+        previous = [[UIBarButtonItem alloc] initWithTitle:@"Previous"
+                                                                     style:UIBarButtonItemStyleBordered
+                                                                    target:target
+                                                                    action:previousSelector];
         
-    UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithTitle:@"Next"
-                                                             style:UIBarButtonItemStyleBordered
-                                                            target:self
-                                                            action:nextSelector];
-        
+        [items addObject:previous];
+    }
+
+    if (nextSelector) {
+        next = [[UIBarButtonItem alloc] initWithTitle:@"Next"
+                                                style:UIBarButtonItemStyleBordered
+                                               target:target
+                                               action:nextSelector];
+        [items addObject:next];
+    }
+    
     UIBarButtonItem *seperator = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                                                                target:nil
                                                                                action:nil];
+    
+    [items addObject:seperator];
+    
+    
+    if(doneSelector){
+        done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                             target:target
+                                                             action:doneSelector];
         
-    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                          target:self
-                                                                          action:doneSelector];
-        
-    [toolBar setItems:@[previous,next,seperator,done]
+        [items addObject:done];
+    }
+    
+    
+    [toolBar setItems:items
              animated:animated];
     
     toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
