@@ -33,7 +33,7 @@
 
 @interface UIView (toolbar)
 
--(UIToolbar*)addKeyboard:(BOOL)animated previous:(SEL)previousSelector nextSelector:(SEL)nextSelector doneSelector:(SEL)doneSelector;;
+-(UIToolbar*)addToolbar:(BOOL)animated target:(id)target previous:(SEL)previousSelector nextSelector:(SEL)nextSelector doneSelector:(SEL)doneSelector;
 -(void)setInputAccessoryView:(UIView *)inputAccessoryView;
 
 @end
